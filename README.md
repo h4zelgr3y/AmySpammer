@@ -19,7 +19,7 @@ pip install urllib3
 1 - Run the script using command:
 <br>
 python3 ASpam.py
-<br>
+<br><br>
 2 - Enter targets phone number (without +98, e.g. 09120000000)
 <br><br>
 <p align="center"><img src="https://s16.picofile.com/file/8421437134/1.png"></p>
