@@ -1,5 +1,7 @@
 # AmySpammer
-This Script Allows You To Spam +98 Phone Numbers With Sms
+This script allows you to spam +98 phone numbers with sms
+<br>
+30 Api's fully functional !
 <br><br>
 # Libraries
 using pip to install:
@@ -11,20 +13,22 @@ pip install urllib3
 # Requirments
 1- Python3
 <br>
-2- A Phone Number To Spam!
+2- A phone number to spam!
 <br><br>
 # Guide
-1 - Run The Script Using Command:
+1 - Run the script using command:
 <br>
 python3 ASpam.py
 <br><br>
-2 - 
+2 - Enter targets phone number (without +98, e.g. 09120000000)
 <br><br>
-![Watch the video]()
+<p align="center"><img src="https://s16.picofile.com/file/8421437134/1.png"></p>
 <br><br>
-3 - 
+3 - Spamming attack started (use "ctrl + c" to stop)
 <br><br>
-![Watch the video]()
+<p align="center"><img src="https://s16.picofile.com/file/8421437000/2.png"></p>
 <br><br>
-# Executable File
-As You Worked With The Script!
+4 - Screen shot
+<br><br>
+<p align="center"><img src="https://s17.picofile.com/file/8421438234/3.png" width="550"></p>
+<br>
