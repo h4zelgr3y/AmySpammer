@@ -1,7 +1,7 @@
 # AmySpammer
 This script allows you to spam +98 phone numbers with sms
 <br>
-30 Api's fully functional !
+36 Api's fully functional !
 <br><br>
 # Libraries
 using pip to install:
