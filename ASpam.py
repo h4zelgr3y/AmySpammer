@@ -1,8 +1,5 @@
 from urllib3.exceptions import InsecureRequestWarning
-import requests
-import random
-import time
-import os
+import requests, random, time, os
 
 
 fnum3 = ['910', '911', '912', '913', '914', '915', '916', '917', '918', '919', '990', '991', '992', '993', '994', '932', '930', '933', '935', '936', '937', '938', '939', '901', '902', '903', '904', '905', '941', '920', '921', '922', '931', '934']
@@ -36,7 +33,7 @@ def banner():
  / ____ \| | | | | | |_| |____) | |_) | (_| | | | | | | | | | | |  __/ |
 /_/    \_\_| |_| |_|\__, |_____/| .__/ \__,_|_| |_| |_|_| |_| |_|\___|_|
                      __/ |      | |
-                    |___/       |_|      {color.BLUE1}   github.com/h4zelgr3y
+                    |___/       |_|      {color.BLUE1}   github.com/weed-web
 	''')
 
 
@@ -339,7 +336,11 @@ def ASM30(number):
 def spam(phonenum):
 	done = 0
 	while(True):
-		k = eval('ASM' + str(random.randint(1, 30)) + '(phonenum)')
+		try:
+			k = eval('ASM' + str(random.randint(1, 30)) + '(phonenum)')
+			time.sleep(1)
+		except requests.exceptions.ConnectionError:
+			continue
 		if(k == 1):
 			done += 1
 			clean()
