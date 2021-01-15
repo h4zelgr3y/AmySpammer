@@ -162,7 +162,8 @@ def ASM12(number):
 def ASM13(number):
 	number = '0' + number
 	data = {'action':'getAppViaSMS', 'number':number}
-	s = requests.post('https://hamrahcard.ir/wp-admin/admin-ajax.php', data = data).json()
+	headers = {'Accept':'*/*', 'Accept-Encoding':'gzip, deflate, br', 'Accept-Language':'en-US,en;q=0.5', 'Connection':'keep-alive', 'Content-Length':'38', 'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8', 'Cookie':'pushNotification-shownCount-5460=0; _hjFirstSeen=1; _hjAbsoluteSessionInProgress=0', 'Host':'hamrahcard.ir', 'Origin':'https://hamrahcard.ir', 'Referer':'https://hamrahcard.ir/', 'TE':'Trailers', 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0', 'X-Requested-With':'XMLHttpRequest'}
+	s = requests.post('https://hamrahcard.ir/wp-admin/admin-ajax.php', headers = headers, data = data).text
 	if(s['success'] == True):
 		return 1
 
