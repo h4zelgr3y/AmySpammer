@@ -125,11 +125,11 @@ def ASM8(number):
 def ASM9(number):
 	number = '0' + number
 	headers = {'Accept-Encoding':'gzip, deflate, sdch', 'Accept-Language':'en-US,en;q=0.8', 'Upgrade-Insecure-Requests':'1', 'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36', 'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8', 'Cache-Control':'max-age=0', 'Connection':'keep-alive'}
-	src = requests.get('https://www.sheypoor.com/session', headers = headers).text
-	csrf = (src.split("tokenValue: '"))[1].split("',")[0]
+	s = requests.get('https://www.sheypoor.com/session', headers = headers).text
+	csrf = (s.split("tokenValue: '"))[1].split("',")[0]
 	data = {'username':number, 'csrf-key':csrf}
-	s = requests.post('https://www.sheypoor.com/auth', headers = headers, data = data).json()
-	if(s['success'] == True):
+	r = requests.post('https://www.sheypoor.com/auth', headers = headers, data = data).json()
+	if(r['success'] == True):
 		return 1
 
 
@@ -160,7 +160,7 @@ def ASM13(number):
 	number = '0' + number
 	data = {'action':'getAppViaSMS', 'number':number}
 	headers = {'Accept':'*/*', 'Accept-Encoding':'gzip, deflate, br', 'Accept-Language':'en-US,en;q=0.5', 'Connection':'keep-alive', 'Content-Length':'38', 'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8', 'Cookie':'pushNotification-shownCount-5460=0; _hjFirstSeen=1; _hjAbsoluteSessionInProgress=0', 'Host':'hamrahcard.ir', 'Origin':'https://hamrahcard.ir', 'Referer':'https://hamrahcard.ir/', 'TE':'Trailers', 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0', 'X-Requested-With':'XMLHttpRequest'}
-	s = requests.post('https://hamrahcard.ir/wp-admin/admin-ajax.php', headers = headers, data = data).text
+	s = requests.post('https://hamrahcard.ir/wp-admin/admin-ajax.php', headers = headers, data = data).json()
 	if(s['success'] == True):
 		return 1
 
