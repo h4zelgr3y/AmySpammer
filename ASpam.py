@@ -33,7 +33,7 @@ def banner():
  / ____ \| | | | | | |_| |____) | |_) | (_| | | | | | | | | | | |  __/ |
 /_/    \_\_| |_| |_|\__, |_____/| .__/ \__,_|_| |_| |_|_| |_| |_|\___|_|
                      __/ |      | |
-                    |___/       |_|      {color.BLUE1}   github.com/weed-web
+                    |___/       |_|      {color.BLUE1}    github.com/weed-web
 	''')
 
 
@@ -401,7 +401,7 @@ def ASM36(number):
 
 
 def ASM37(number):
-  data = {'mobile':number, 'version':'', 'platform':'Browser'}
+	data = {'mobile':number, 'version':'', 'platform':'Browser'}
 	s = requests.post('https://ojaghfood.ir/api/v1/login', data = data).json()
 	if(s['code'] == 100):
 		return 1
